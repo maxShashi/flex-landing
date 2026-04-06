@@ -79,16 +79,41 @@ body {
 }
 .hero-title {
   font-family: var(--ff-display);
-  font-size: clamp(36px, 8vw, 72px);
   font-weight: 400;
-  font-style: italic;
-  line-height: 1.08;
+  line-height: 1.0;
   color: var(--white);
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.8s ease 0.2s, transform 0.8s var(--ease-out) 0.2s;
 }
-.hero-title em { color: var(--gold); display: block; }
+.hero-title .line1 {
+  display: block;
+  font-size: clamp(13px, 3vw, 28px);
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245,243,238,0.55);
+  margin-bottom: 4px;
+}
+.hero-title .line2 {
+  display: block;
+  font-size: clamp(52px, 13vw, 110px);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  line-height: 0.92;
+}
+.hero-title .line3 {
+  display: block;
+  font-size: clamp(32px, 7.5vw, 68px);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 1.05;
+  margin-top: 2px;
+}
 .hero-title.visible { opacity:1; transform:translateY(0); }
 .hero-sub {
   font-size: clamp(14px, 1.8vw, 17px);
@@ -105,7 +130,7 @@ body {
 
 /* ─── STATEMENT SECTION ─── */
 .statement {
-  padding: 120px 48px;
+  padding: 56px 24px 48px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -124,7 +149,7 @@ body {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 32px;
+  margin-bottom: 16px;
   display: block;
 }
 .statement-text {
@@ -151,17 +176,17 @@ body {
   display: block;
   width: 60px; height: 1px;
   background: var(--gold);
-  margin: 40px auto 0;
+  margin: 24px auto 0;
   opacity: 0.6;
 }
 
 /* ─── CATEGORIES ─── */
 .categories {
-  padding: 0 24px 120px;
+  padding: 0 24px 64px;
 }
 .categories-header {
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 36px;
 }
 .section-eyebrow {
   font-size: 10px;
@@ -261,7 +286,7 @@ body {
 
 /* ─── VALUE PROPS ─── */
 .values {
-  padding: 120px 48px;
+  padding: 56px 24px;
   border-top: 1px solid var(--gold-border);
   border-bottom: 1px solid var(--gold-border);
 }
@@ -306,13 +331,13 @@ body {
 
 /* ─── TESTIMONIALS ─── */
 .testimonials {
-  padding: 120px 48px;
+  padding: 56px 24px;
   max-width: 1200px;
   margin: 0 auto;
 }
 .testimonials-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 }
 .testimonials-grid {
   display: grid;
@@ -358,7 +383,7 @@ body {
 /* ─── CONCIERGE ─── */
 .concierge {
   position: relative;
-  padding: 140px 48px;
+  padding: 56px 24px;
   background: var(--black-card);
   border-top: 1px solid var(--gold-border);
   overflow: hidden;
@@ -437,7 +462,7 @@ body {
 
 /* ─── FOOTER CTA ─── */
 .footer-cta {
-  padding: 120px 48px;
+  padding: 56px 24px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -633,11 +658,6 @@ footer {
   .categories-grid { grid-template-columns: 1fr; gap: 2px; }
   .category-card { aspect-ratio: 4/5; }
   .testimonials-grid { grid-template-columns: 1fr; }
-  .statement { padding: 64px 24px; }
-  .values { padding: 64px 24px; }
-  .testimonials { padding: 64px 24px; }
-  .concierge { padding: 64px 24px; }
-  .footer-cta { padding: 64px 24px; }
   footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
 }
 @media (max-width: 375px) {
@@ -663,8 +683,12 @@ footer {
 
 <!-- HERO TEXT -->
 <div class="hero-text">
-  <h1 class="hero-title">Shop Like A <em>Millionaire</em></h1>
-  <p class="hero-sub">Curated luxury designer pieces from around the world, offered at surprisingly affordable prices for the same premium quality.</p>
+  <h1 class="hero-title">
+    <span class="line1">Shop Like A</span>
+    <span class="line2">Million</span>
+    <span class="line3">— aire</span>
+  </h1>
+  <p class="hero-sub">Curated luxury designer pieces from around the world, offered at surprisingly affordable prices for the same premium quality. <strong style="color:var(--gold);font-weight:500;">100k items in stock.</strong></p>
 </div>
 
 <!-- STATEMENT -->
