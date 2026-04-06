@@ -335,17 +335,14 @@ nav.scrolled {
   inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.6s ease;
+  opacity: 1;
 }
 .cat-poster-img {
   position: absolute;
   inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  transition: opacity 0.6s ease;
 }
-.category-card:hover .cat-poster-img { opacity: 0; }
 .cat-overlay {
   position: absolute;
   inset: 0;
@@ -817,7 +814,7 @@ footer {
 
     <div class="category-card reveal" tabindex="0" aria-label="Shop Watches">
       <img class="cat-poster-img" src="poster-watches.jpg" alt="" aria-hidden="true">
-      <video class="cat-video" muted loop playsinline preload="none" poster="poster-watches.jpg" aria-hidden="true">
+      <video class="cat-video" autoplay muted loop playsinline preload="auto" poster="poster-watches.jpg" aria-hidden="true">
         <source src="watches.mp4" type="video/mp4">
       </video>
       <div class="cat-overlay" aria-hidden="true"></div>
@@ -830,7 +827,7 @@ footer {
 
     <div class="category-card reveal reveal-delay-1" tabindex="0" aria-label="Shop Clothes">
       <img class="cat-poster-img" src="poster-clothes.jpg" alt="" aria-hidden="true">
-      <video class="cat-video" muted loop playsinline preload="none" poster="poster-clothes.jpg" aria-hidden="true">
+      <video class="cat-video" autoplay muted loop playsinline preload="auto" poster="poster-clothes.jpg" aria-hidden="true">
         <source src="clothes.mp4" type="video/mp4">
       </video>
       <div class="cat-overlay" aria-hidden="true"></div>
@@ -843,7 +840,7 @@ footer {
 
     <div class="category-card reveal reveal-delay-2" tabindex="0" aria-label="Shop Designer Bags">
       <img class="cat-poster-img" src="poster-bags.jpg" alt="" aria-hidden="true">
-      <video class="cat-video" muted loop playsinline preload="none" poster="poster-bags.jpg" aria-hidden="true">
+      <video class="cat-video" autoplay muted loop playsinline preload="auto" poster="poster-bags.jpg" aria-hidden="true">
         <source src="bags.mp4" type="video/mp4">
       </video>
       <div class="cat-overlay" aria-hidden="true"></div>
@@ -856,7 +853,7 @@ footer {
 
     <div class="category-card reveal reveal-delay-3" tabindex="0" aria-label="Shop Footwear">
       <img class="cat-poster-img" src="poster-footwear.jpg" alt="" aria-hidden="true">
-      <video class="cat-video" muted loop playsinline preload="none" poster="poster-footwear.jpg" aria-hidden="true">
+      <video class="cat-video" autoplay muted loop playsinline preload="auto" poster="poster-footwear.jpg" aria-hidden="true">
         <source src="footwear.mp4" type="video/mp4">
       </video>
       <div class="cat-overlay" aria-hidden="true"></div>
@@ -1063,45 +1060,10 @@ footer {
 
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-  // ─── CATEGORY VIDEOS: hover play ───
-  document.querySelectorAll('.category-card').forEach(card => {
-    const video = card.querySelector('.cat-video');
-    if (!video) return;
-
-    const playVideo = () => {
-      video.play().catch(() => {});
-    };
-    const pauseVideo = () => {
-      video.pause();
-      video.currentTime = 0;
-    };
-
-    card.addEventListener('mouseenter', playVideo);
-    card.addEventListener('mouseleave', pauseVideo);
-    card.addEventListener('focus', playVideo);
-    card.addEventListener('blur', pauseVideo);
-
-    // Touch support
-    card.addEventListener('touchstart', () => {
-      if (video.paused) playVideo();
-      else pauseVideo();
-    }, { passive: true });
+  // ─── CATEGORY VIDEOS: ensure autoplay ───
+  document.querySelectorAll('.cat-video').forEach(video => {
+    video.play().catch(() => {});
   });
-
-  // ─── CATEGORY VIDEOS: intersection load ───
-  const videoObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const video = entry.target.querySelector('.cat-video');
-        if (video) {
-          video.preload = 'auto';
-          video.load();
-        }
-        videoObs.unobserve(entry.target);
-      }
-    });
-  }, { rootMargin: '200px' });
-  document.querySelectorAll('.category-card').forEach(c => videoObs.observe(c));
 
   // ─── INIT ───
   heroEntrance();
