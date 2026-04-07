@@ -1001,7 +1001,13 @@ footer {
     return img;
   });
 
-  const canvas = document.getElementById('logo-rain');
+  let canvas = document.getElementById('logo-rain');
+  if (!canvas) {
+    canvas = document.createElement('canvas');
+    canvas.id = 'logo-rain';
+    canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;';
+    document.body.insertBefore(canvas, document.body.firstChild);
+  }
   const ctx = canvas.getContext('2d');
 
   function resize() {
