@@ -132,6 +132,19 @@ body {
   transition: opacity 0.8s ease 0.4s, transform 0.8s var(--ease-out) 0.4s;
 }
 .hero-sub.visible { opacity:1; transform:translateY(0); }
+.hero-trust {
+  font-family: var(--ff-body);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: rgba(245,243,238,0.55);
+  margin-top: 14px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.8s ease 0.6s, transform 0.8s var(--ease-out) 0.6s;
+}
+.hero-trust span { color: var(--gold); }
+.hero-trust.visible { opacity:1; transform:translateY(0); }
 
 /* ─── STATEMENT SECTION ─── */
 .statement {
@@ -659,14 +672,15 @@ footer {
   .concierge-steps { grid-template-columns: 1fr; gap: 32px; }
 }
 @media (max-width: 768px) {
-  .hero-text { margin-top: -10vw; }
+  .hero-text { margin-top: -10vw; padding-bottom: 20px; }
   .categories-grid { grid-template-columns: 1fr; gap: 2px; }
   .category-card { aspect-ratio: 4/5; }
   .testimonials-grid { grid-template-columns: 1fr; }
   footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+  .statement { padding-top: 28px; padding-bottom: 28px; }
+  .cat-cta { opacity: 1; transform: translateY(0); display: block; padding: 12px 0; }
 }
 @media (max-width: 375px) {
-  .hero-title { font-size: 34px; }
   .hero-sub { font-size: 14px; }
   .statement-text { font-size: 18px; }
 }
@@ -679,7 +693,7 @@ footer {
 
 <!-- HERO -->
 <div class="hero-wrap" role="banner">
-  <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
     <source src="hero.mp4" type="video/mp4">
   </video>
   <div class="hero-fade" aria-hidden="true"></div>
@@ -692,6 +706,7 @@ footer {
     <span class="line2">Millionaire</span>
   </h1>
   <p class="hero-sub">Committed to Affordable Luxury, Always. Curated premium designer pieces from around the world, offered at surprisingly accessible prices for the same superior quality. <strong style="color:var(--gold);font-weight:500;">30k items in stock.</strong></p>
+  <p class="hero-trust"><span>★★★★★</span> 800+ orders monthly</p>
 </div>
 
 <!-- STATEMENT -->
@@ -939,7 +954,8 @@ footer {
   function heroEntrance() {
     const title = document.querySelector('.hero-title');
     const sub   = document.querySelector('.hero-sub');
-    [title, sub].forEach(el => el && el.classList.add('visible'));
+    const trust = document.querySelector('.hero-trust');
+    [title, sub, trust].forEach(el => el && el.classList.add('visible'));
   }
 
   // ─── SCROLL REVEAL ───
