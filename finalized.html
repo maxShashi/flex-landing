@@ -674,9 +674,8 @@ footer {
 
 <!-- HERO -->
 <div class="hero-wrap" role="banner">
-  <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-    <source src="hero.MOV" type="video/quicktime">
-    <source src="hero.MOV" type="video/mp4">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <source src="hero.mp4" type="video/mp4">
   </video>
   <div class="hero-fade" aria-hidden="true"></div>
 </div>
@@ -712,8 +711,8 @@ footer {
 
     <div class="category-card reveal" tabindex="0" aria-label="Shop Watches">
       <img class="cat-poster-img" src="poster-watches.jpg" alt="" aria-hidden="true">
-      <video class="cat-video" autoplay muted loop playsinline preload="auto" poster="poster-watches.jpg" aria-hidden="true">
-        <source src="watches.mp4" type="video/mp4">
+      <video class="cat-video" muted loop playsinline preload="none" poster="poster-watches.jpg" aria-hidden="true">
+        <source src="watches-c.mp4" type="video/mp4">
       </video>
       <div class="cat-overlay" aria-hidden="true"></div>
       <div class="cat-content">
@@ -725,8 +724,8 @@ footer {
 
     <div class="category-card reveal reveal-delay-1" tabindex="0" aria-label="Shop Clothes">
       <img class="cat-poster-img" src="poster-clothes.jpg" alt="" aria-hidden="true">
-      <video class="cat-video" autoplay muted loop playsinline preload="auto" poster="poster-clothes.jpg" aria-hidden="true">
-        <source src="clothes.mp4" type="video/mp4">
+      <video class="cat-video" muted loop playsinline preload="none" poster="poster-clothes.jpg" aria-hidden="true">
+        <source src="clothes-c.mp4" type="video/mp4">
       </video>
       <div class="cat-overlay" aria-hidden="true"></div>
       <div class="cat-content">
@@ -738,8 +737,8 @@ footer {
 
     <div class="category-card reveal reveal-delay-2" tabindex="0" aria-label="Shop Designer Bags">
       <img class="cat-poster-img" src="poster-bags.jpg" alt="" aria-hidden="true">
-      <video class="cat-video" autoplay muted loop playsinline preload="auto" poster="poster-bags.jpg" aria-hidden="true">
-        <source src="bags.mp4" type="video/mp4">
+      <video class="cat-video" muted loop playsinline preload="none" poster="poster-bags.jpg" aria-hidden="true">
+        <source src="bags-c.mp4" type="video/mp4">
       </video>
       <div class="cat-overlay" aria-hidden="true"></div>
       <div class="cat-content">
@@ -751,8 +750,8 @@ footer {
 
     <div class="category-card reveal reveal-delay-3" tabindex="0" aria-label="Shop Footwear">
       <img class="cat-poster-img" src="poster-footwear.jpg" alt="" aria-hidden="true">
-      <video class="cat-video" autoplay muted loop playsinline preload="auto" poster="poster-footwear.jpg" aria-hidden="true">
-        <source src="footwear.mp4" type="video/mp4">
+      <video class="cat-video" muted loop playsinline preload="none" poster="poster-footwear.jpg" aria-hidden="true">
+        <source src="footwear-c.mp4" type="video/mp4">
       </video>
       <div class="cat-overlay" aria-hidden="true"></div>
       <div class="cat-content">
@@ -951,10 +950,23 @@ footer {
 
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-  // ─── CATEGORY VIDEOS: ensure autoplay ───
-  document.querySelectorAll('.cat-video').forEach(video => {
-    video.play().catch(() => {});
-  });
+  // ─── CATEGORY VIDEOS: lazy load + autoplay on enter ───
+  const catVideoObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target.querySelector('.cat-video');
+      if (!video) return;
+      if (entry.isIntersecting) {
+        if (video.preload === 'none') {
+          video.preload = 'auto';
+          video.load();
+        }
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.category-card').forEach(c => catVideoObs.observe(c));
 
   // ─── INIT ───
   heroEntrance();
